@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-#if defined(_WIN32) || defined(_WIN64)
 #include <windows.h>
+
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
         case WM_DESTROY:
@@ -56,11 +53,3 @@ int main() {
 
     return 0;
 }
-#elif defined(__linux__) 
-int main(){
-    printf("you're on linux\n");
-    return 0;
-}
-#else
-    #error "Unsupported operating system"
-#endif

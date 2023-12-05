@@ -3,5 +3,5 @@ set "folderPath=build"
 if not exist "%folderPath%" (
     mkdir "%folderPath%"
 )
-cl ./main.c -o ./build/main.exe
+cl ./main.c /Fe:build/main.exe /link user32.lib
 rm main.obj

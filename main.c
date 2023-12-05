@@ -57,10 +57,92 @@ int main() {
     return 0;
 }
 #elif defined(__linux__) 
-int main(){
-    printf("you're on linux\n");
-    return 0;
+#include<X11/X.h>
+#include<X11/Xlib.h>
+#include<GL/gl.h>
+#include<GL/glx.h>
+#include<GL/glu.h>
+
+
+Display                 *dpy;
+Window                  root;
+GLint                   att[] = { GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None };
+XVisualInfo             *vi;
+Colormap                cmap;
+XSetWindowAttributes    swa;
+Window                  win;
+GLXContext              glc;
+XWindowAttributes       gwa;
+XEvent                  xev;
+
+int main(int argc, char *argv[]) {
+
+
+ 	// this creates a connection to a display server
+ 	dpy = XOpenDisplay(NULL);
+	
+ 	// this checks if the server has made a connection
+ 	if(dpy == NULL) {
+ 		printf("\n\tcannot connect to X server\n\n");
+ 	    exit(0);
+ 	}
+	
+ 	// this gets a root window for the display pass into it
+ 	root = DefaultRootWindow(dpy);
+
+ 	// seems to create the visual that i want 
+ 	vi = glXChooseVisual(dpy, 0, att);
+
+ 	// checks if the visual worked and if it did makes a hex output
+ 	if(vi == NULL) {
+		printf("\n\tno appropriate visual found\n\n");
+ 	    exit(0);
+ 	} 
+ 	else {
+		printf("\n\tvisual %p selected\n", (void *)vi->visualid); /* %p creates hexadecimal output like in glxinfo */
+ 	}
+
+	// creates a colormap but doesint allocte any colors
+ 	cmap = XCreateColormap(dpy, root, vi->visual, AllocNone);
+
+ 	swa.colormap = cmap;
+ 	swa.event_mask = ExposureMask | KeyPressMask;
+	
+ 	win = XCreateWindow(dpy, root, 0, 0, 600, 600, 0, vi->depth, InputOutput, vi->visual, CWColormap | CWEventMask, &swa);
+
+ 	XMapWindow(dpy, win);
+ 	XStoreName(dpy, win, "Empty Window");
+ 
+ 	glc = glXCreateContext(dpy, vi, NULL, GL_TRUE);
+ 	glXMakeCurrent(dpy, win, glc);
+ 
+	glEnable(GL_DEPTH_TEST); 
+
+	while(1){
+    	while (XPending(dpy) > 0) {
+    	    XNextEvent(dpy, &xev);
+
+    	    if (xev.type == Expose) {
+    	        XGetWindowAttributes(dpy, win, &gwa);
+    	        glViewport(0, 0, gwa.width, gwa.height);
+    	        glXSwapBuffers(dpy, win);
+    	    } else if (xev.type == KeyPress) {
+    	        KeySym key = XLookupKeysym(&xev.xkey, 0);
+
+    	        switch (key) {
+    	            case XK_Escape:
+    	                glXMakeCurrent(dpy, None, NULL);
+    	                glXDestroyContext(dpy, glc);
+    	                XDestroyWindow(dpy, win);
+    	                XCloseDisplay(dpy);
+    	                exit(0);
+    	                break;
+    	        }
+    	    }
+    	}
+	}
 }
+
 #else
     #error "Unsupported operating system"
 #endif

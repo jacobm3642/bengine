@@ -180,32 +180,50 @@ int main(int argc, char *argv[]) {
  	glXMakeCurrent(dpy, win, glc);
  
 	glEnable(GL_DEPTH_TEST); 
-    
-    hello();
-    
-	while(1){
-    	while (XPending(dpy) > 0) {
-    	    XNextEvent(dpy, &xev);
+    GLuint vertexBuffer;
+    GLfloat vertices[] = {
+        -0.5f, -0.5f, 0.0f,  // Bottom-left
+        0.5f, -0.5f, 0.0f,   // Bottom-right
+        0.0f, 0.5f, 0.0f     // Top
+    };
 
-    	    if (xev.type == Expose) {
-    	        XGetWindowAttributes(dpy, win, &gwa);
-    	        glViewport(0, 0, gwa.width, gwa.height);
-    	        glXSwapBuffers(dpy, win);
-    	    } else if (xev.type == KeyPress) {
-    	        KeySym key = XLookupKeysym(&xev.xkey, 0);
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    	        switch (key) {
-    	            case XK_Escape:
-    	                glXMakeCurrent(dpy, None, NULL);
-    	                glXDestroyContext(dpy, glc);
-    	                XDestroyWindow(dpy, win);
-    	                XCloseDisplay(dpy);
-    	                exit(0);
-    	                break;
-    	        }
-    	    }
-    	}
-	}
+    while(1) {
+        while (XPending(dpy) > 0) {
+            XNextEvent(dpy, &xev);
+
+            if (xev.type == Expose) {
+                glXMakeCurrent(dpy, win, glc); // Set the current OpenGL rendering context
+
+                XGetWindowAttributes(dpy, win, &gwa);
+                glViewport(0, 0, gwa.width, gwa.height);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+                glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+                glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+                glEnableVertexAttribArray(0);
+
+                glDrawArrays(GL_TRIANGLES, 0, 3);
+
+                glXSwapBuffers(dpy, win);
+            } else if (xev.type == KeyPress) {
+                KeySym key = XLookupKeysym(&xev.xkey, 0);
+
+                switch (key) {
+                    case XK_Escape:
+                        glXMakeCurrent(dpy, None, NULL);
+                        glXDestroyContext(dpy, glc);
+                        XDestroyWindow(dpy, win);
+                        XCloseDisplay(dpy);
+                        exit(0);
+                        break;
+                }
+            }
+        }
+    }
 }
 
 #else

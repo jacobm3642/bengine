@@ -11,5 +11,3 @@ typedef struct R_Polygon {
 } R_Polygon;
 
 R_Polygon *init_polygon();
-
-void hello();

@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <GL/glew.h>
 #include <GL/gl.h>
-
-#pragma comment(lib, "glew32.lib")
+#include "renderer/objects.h"
 
 #if defined(_WIN32) || defined(_WIN64)
 #include <windows.h>
 
+#pragma comment(lib, "glew32.lib")
 // Function to handle window messages
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
@@ -119,9 +119,11 @@ int main() {
 }
 
 #elif defined(__linux__) 
+
 #include<X11/X.h>
 #include<X11/Xlib.h>
 #include<GL/glx.h>
+#include<GL/glu.h>
 
 
 Display                 *dpy;
@@ -177,7 +179,9 @@ int main(int argc, char *argv[]) {
  	glXMakeCurrent(dpy, win, glc);
  
 	glEnable(GL_DEPTH_TEST); 
-
+    
+    hello();
+    
 	while(1){
     	while (XPending(dpy) > 0) {
     	    XNextEvent(dpy, &xev);

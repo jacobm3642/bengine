@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glu.h>
 
 #pragma comment(lib, "glew32.lib")
 
@@ -10,10 +9,9 @@
 #include <windows.h>
 
 // Function to handle window messages
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    switch (message)
-    {
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+    switch (message) {
         case WM_CREATE:
             return 0;
 
@@ -31,8 +29,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 // Function to set up OpenGL
-void SetupOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC)
-{
+void SetupOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC) {
     PIXELFORMATDESCRIPTOR pfd;
     int format;
 
@@ -56,32 +53,30 @@ void SetupOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC)
 }
 
 // Function to initialize OpenGL
-void InitOpenGL()
-{
+void InitOpenGL() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    glEnable(GL_DEPTH_TEST);
 }
 
 // Function to render the scene
-void RenderScene()
-{
-    glClear(GL_COLOR_BUFFER_BIT);
+void RenderScene() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glBegin(GL_TRIANGLES);
-    glVertex2f(-0.5, -0.5);
-    glVertex2f(0.5, -0.5);
-    glVertex2f(0.0, 0.5);
+    glBegin(GL_POLYGON);
+    glColor3f(1.0, 0.0, 0.0);
+    glVertex2f(-0.6, -0.6);
+    glColor3f(0.0, 1.0, 0.0);
+    glVertex2f(0.6, -0.6);
+    glColor3f(0.0, 0.0, 1.0);
+    glVertex2f(0.6, 0.6);
+    glColor3f(1.0, 1.0, 1.0);
+    glVertex2f(-0.6, 0.6);
     glEnd();
 
     glFlush();
 }
 
-int main()
-{
+int main() {
     // Register the window class
     WNDCLASS wc = { CS_BYTEALIGNCLIENT, (WNDPROC)WndProc, 0, 0, GetModuleHandle(NULL),
                     LoadIcon(NULL, IDI_APPLICATION), LoadCursor(NULL, IDC_ARROW),
@@ -90,7 +85,7 @@ int main()
 
     // Create the window
     HWND hWnd = CreateWindow("OpenGL", "OpenGL Window", WS_OVERLAPPEDWINDOW,
-        100, 100, 600, 400, NULL, NULL, GetModuleHandle(NULL), NULL);
+        100, 100, 800, 600, NULL, NULL, GetModuleHandle(NULL), NULL);
 
     HDC hDC;
     HGLRC hRC;
@@ -107,8 +102,7 @@ int main()
 
     // Main message loop
     MSG msg;
-    while (GetMessage(&msg, NULL, 0, 0))
-    {
+    while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
         RenderScene();

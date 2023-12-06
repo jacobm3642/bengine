@@ -10,3 +10,4 @@ set "shared_flags=/LD"
 cl %shared_flags% %folderPath%/renderer/objects.c /Fe:%folderPath%/renderer/libobjects.dll
 cl E:\Bengine\bengine\main.c /EHsc /I"E:\glew-2.2.0\include" /I"E:\glew-2.2.0\lib" /Fe:%outputFile% /link %compilerFlag% %libraryPath%
 del main.obj
+del objects.obj

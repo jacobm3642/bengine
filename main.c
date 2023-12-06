@@ -10,6 +10,7 @@
 #pragma comment(lib, "glew32.lib")
 // Function to handle window messages
 
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_CREATE:

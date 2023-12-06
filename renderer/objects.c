@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Polygon *init_polygon() {
-    Polygon *new_polygon;
-    new_polygon = malloc(sizeof(Polygon));
+R_Polygon *init_polygon() {
+    R_Polygon *new_polygon;
+    new_polygon = malloc(sizeof(R_Polygon));
     for (int i; i < 255; i++){
         new_polygon->vertexs[i] = 0;
     }

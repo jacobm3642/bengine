@@ -1,15 +1,15 @@
-typedef struct Color {
+typedef struct R_Color {
     char r;
     char g;
     char b;
-} Color;
+} R_Color;
 
-typedef struct Polygon {
+typedef struct R_Polygon {
     float vertexs[255];
     char indexs[255];
-    Color color;
-} Polygon;
+    R_Color color;
+} R_Polygon;
 
-Polygon *init_polygon();
+R_Polygon *init_polygon();
 
 void hello();

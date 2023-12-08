@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <GL/glew.h>
-#include <GL/gl.h>
 #include "renderer/objects.h"
 #include "datastructs/heap.h"
 
 #if defined(_WIN32) || defined(_WIN64)
 #include <windows.h>
-
+#include "GL/glew.h"
+#include <GL/gl.h>
 #pragma comment(lib, "glew32.lib")
 // Function to handle window messages
 
@@ -79,6 +78,7 @@ void RenderScene() {
 }
 
 int main() {
+    test();
     // Register the window class
     WNDCLASS wc = { CS_BYTEALIGNCLIENT, (WNDPROC)WndProc, 0, 0, GetModuleHandle(NULL),
                     LoadIcon(NULL, IDI_APPLICATION), LoadCursor(NULL, IDC_ARROW),
@@ -124,6 +124,7 @@ int main() {
 
 #include<X11/X.h>
 #include<X11/Xlib.h>
+#include <GL/glew.h>
 #include<GL/glx.h>
 #include<GL/glu.h>
 

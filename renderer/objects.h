@@ -5,9 +5,11 @@ typedef struct R_Color {
 } R_Color;
 
 typedef struct R_Polygon {
-    float vertexs[255];
-    char indexs[255];
+    float vertices[255];
+    char indices[255];
     R_Color color;
 } R_Polygon;
 
 R_Polygon *init_polygon();
+void test();
+void add_triangle(R_Polygon *polygon, float *vertices);

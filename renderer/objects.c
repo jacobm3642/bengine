@@ -1,21 +1,22 @@
+#define BUILDING_DLL
 #include "objects.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
 
-R_Polygon *init_polygon() {
+DLL_EXPORT R_Polygon *init_polygon() {
     R_Polygon *new_polygon;
     new_polygon = malloc(sizeof(R_Polygon));
-    for (int i=0; i < 255; i++){
+    for (int i = 0; i < 255; i++) {
         new_polygon->vertices[i] = 0;
         new_polygon->indices[i] = 0;
     }
-    new_polygon->vertices[0]='\0';
-    new_polygon->indices[0]='\0';
+    new_polygon->vertices[0] = '\0';
+    new_polygon->indices[0] = '\0';
     return new_polygon;
 }
 
-void add_triangle(R_Polygon *polygon, float *vertices) {
+DLL_EXPORT void add_triangle(R_Polygon *polygon, float *vertices) {
     int i;
     for (i = 0; i < 255 && polygon->vertices[i] != '\0'; i++) {
     }
@@ -25,7 +26,7 @@ void add_triangle(R_Polygon *polygon, float *vertices) {
     polygon->vertices[i + 3] = '\0';
 }
 
-void test(){
+DLL_EXPORT void test() {
     // Initialize a polygon
     R_Polygon *polygon = init_polygon();
 

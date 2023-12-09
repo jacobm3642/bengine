@@ -1,3 +1,7 @@
+// objects.h
+#ifndef OBJECTS_H
+#define OBJECTS_H
+
 typedef struct R_Color {
     char r;
     char g;
@@ -10,6 +14,14 @@ typedef struct R_Polygon {
     R_Color color;
 } R_Polygon;
 
-R_Polygon *init_polygon();
-void test();
-void add_triangle(R_Polygon *polygon, float *vertices);
+#ifdef BUILDING_DLL
+#define DLL_EXPORT __declspec(dllexport)
+#else
+#define DLL_EXPORT __declspec(dllimport)
+#endif
+
+DLL_EXPORT R_Polygon *init_polygon();
+DLL_EXPORT void test();
+DLL_EXPORT void add_triangle(R_Polygon *polygon, float *vertices);
+
+#endif // OBJECTS_H

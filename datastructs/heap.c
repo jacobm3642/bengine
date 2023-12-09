@@ -9,6 +9,7 @@
 #include <stddef.h> 
 
 EXPORT void swap(int i, int j, Heap *heap) {
+EXPORT void swap(int i, int j, Heap *heap) {
   int *array = heap->array;
   int temp;
   temp = array[i];
@@ -51,4 +52,20 @@ EXPORT void min_heapafy(Heap *heap, int i) {
   for (int i = size; i != -1; i--){
     min_sift_down(i, heap);
   }
+}
+
+EXPORT void max_heapafy(Heap *heap, int i) { 
+  int *array = heap->array;
+  int size = heap->size;
+  for (int i = size; i != -1; i--){
+    max_sift_down(i, heap);
+  }
+}
+
+EXPORT Heap *array_to_heap(int *array, int size) {
+  Heap *heap;
+  heap = malloc(sizeof(Heap));
+  heap->array = array;
+  heap->size = size;
+  return heap;
 }

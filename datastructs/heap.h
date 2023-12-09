@@ -15,4 +15,7 @@ typedef struct Heap{
 } Heap;
 
 
+EXPORT void min_heapafy(Heap *heap, int i);
+EXPORT void max_heapafy(Heap *heap, int i);
+
 #endif

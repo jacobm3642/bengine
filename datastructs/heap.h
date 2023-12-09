@@ -1,6 +1,12 @@
 #ifndef HEAP_H_
 #define HEAP_H_
 
+#if defined(_WIN32) || defined(_WIN64)
+#define EXPORT __declspec(dllexport)
+#else
+#define EXPORT __attribute__((visibility("default")))
+#endif
+
 #include <stddef.h>
 
 typedef struct Heap{
@@ -8,7 +14,7 @@ typedef struct Heap{
   size_t size;
 } Heap;
 
-void min_heapafy(Heap *heap, int i);
-void max_heapafy(Heap *heap, int i);
+EXPORT void min_heapafy(Heap *heap, int i);
+EXPORT void max_heapafy(Heap *heap, int i);
 
 #endif

@@ -46,3 +46,19 @@ void min_heapafy(Heap *heap, int i) {
     min_sift_down(i, heap);
   }
 }
+
+void max_heapafy(Heap *heap, int i) { 
+  int *array = heap->array;
+  int size = heap->size;
+  for (int i = size; i != -1; i--){
+    max_sift_down(i, heap);
+  }
+}
+
+Heap *array_to_heap(int *array, int size) {
+  Heap *heap;
+  heap = malloc(sizeof(Heap));
+  heap->array = array;
+  heap->size = size;
+  return heap;
+}

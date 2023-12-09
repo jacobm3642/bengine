@@ -8,4 +8,7 @@ typedef struct Heap{
   size_t size;
 } Heap;
 
+void min_heapafy(Heap *heap, int i);
+void max_heapafy(Heap *heap, int i);
+
 #endif

@@ -1,6 +1,13 @@
 // objects.h
+
 #ifndef OBJECTS_H
 #define OBJECTS_H
+
+#ifdef _WIN32
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT __attribute__((visibility("default")))
+#endif
 
 typedef struct R_Color {
     char r;
@@ -14,14 +21,8 @@ typedef struct R_Polygon {
     R_Color color;
 } R_Polygon;
 
-#ifdef BUILDING_DLL
-#define DLL_EXPORT __declspec(dllexport)
-#else
-#define DLL_EXPORT __declspec(dllimport)
-#endif
-
-DLL_EXPORT R_Polygon *init_polygon();
-DLL_EXPORT void test();
-DLL_EXPORT void add_triangle(R_Polygon *polygon, float *vertices);
+EXPORT R_Polygon *init_polygon();
+EXPORT void add_triangle(R_Polygon *polygon, float *vertices);
+EXPORT void test();
 
 #endif // OBJECTS_H

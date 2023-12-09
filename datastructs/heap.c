@@ -9,7 +9,6 @@
 #include <stddef.h> 
 
 EXPORT void swap(int i, int j, Heap *heap) {
-EXPORT void swap(int i, int j, Heap *heap) {
   int *array = heap->array;
   int temp;
   temp = array[i];

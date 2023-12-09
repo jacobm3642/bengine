@@ -78,6 +78,9 @@ void RenderScene() {
 }
 
 int main() {
+    R_Polygon myPolygon = {0};
+    float newVertices[3] = {1.0f, 2.0f, 3.0f};
+    add_triangle(&myPolygon, newVertices);
     // Register the window class
     WNDCLASS wc = { CS_BYTEALIGNCLIENT, (WNDPROC)WndProc, 0, 0, GetModuleHandle(NULL),
                     LoadIcon(NULL, IDI_APPLICATION), LoadCursor(NULL, IDC_ARROW),

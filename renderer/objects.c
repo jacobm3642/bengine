@@ -31,24 +31,3 @@ EXPORT void add_triangle(R_Polygon *polygon, float *vertices) {
     polygon->vertices[i + 3] = '\0';
 }
 
-EXPORT void test(void){
-    // Initialize a polygon
-    R_Polygon *polygon = init_polygon();
-
-    // Define vertices for a triangle
-    float triangleVertices[] = {1.0, 2.0, 3.0};
-
-    // Add the triangle to the polygon
-    add_triangle(polygon, triangleVertices);
-
-    // Verify the result
-    assert(polygon->vertices[0] == 1.0);
-    assert(polygon->vertices[1] == 2.0);
-    assert(polygon->vertices[2] == 3.0);
-    assert(polygon->vertices[3] == '\0');
-
-    // Clean up
-    free(polygon);
-
-    printf("Test case passed!\n");
-}

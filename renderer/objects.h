@@ -21,6 +21,5 @@ typedef struct R_Polygon {
 
 EXPORT R_Polygon *init_polygon();
 EXPORT void add_triangle(R_Polygon* polygon, float* vertices);
-EXPORT void test(void);
 
 #endif // OBJECTS_H

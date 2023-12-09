@@ -1,8 +1,14 @@
+#if defined(_WIN32) || defined(_WIN64)
+  #define EXPORT __declspec(dllexport)
+#else
+  #define EXPORT __attribute__((visibility("default")))
+#endif
+
 #include "heap.h"
 #include <stdlib.h>
 #include <stddef.h> 
 
-void swap(int i, int j, Heap *heap) {
+EXPORT void swap(int i, int j, Heap *heap) {
   int *array = heap->array;
   int temp;
   temp = array[i];
@@ -10,7 +16,7 @@ void swap(int i, int j, Heap *heap) {
   array[j] = temp;
 }
 
-void min_sift_down(int i, Heap *heap) {
+EXPORT void min_sift_down(int i, Heap *heap) {
   int *array = heap->array;
   int size = heap->size;
   int kid1, kid2;
@@ -24,7 +30,7 @@ void min_sift_down(int i, Heap *heap) {
   }
 }
 
-void max_sift_down(int i, Heap *heap) {
+EXPORT void max_sift_down(int i, Heap *heap) {
   int *array = heap->array;
   int size = heap->size;
   int kid1, kid2;
@@ -39,7 +45,7 @@ void max_sift_down(int i, Heap *heap) {
 }
 
 
-void min_heapafy(Heap *heap, int i) { 
+EXPORT void min_heapafy(Heap *heap, int i) { 
   int *array = heap->array;
   int size = heap->size;
   for (int i = size; i != -1; i--){

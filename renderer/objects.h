@@ -1,5 +1,3 @@
-// objects.h
-
 #ifndef OBJECTS_H
 #define OBJECTS_H
 
@@ -22,7 +20,7 @@ typedef struct R_Polygon {
 } R_Polygon;
 
 EXPORT R_Polygon *init_polygon();
-EXPORT void add_triangle(R_Polygon *polygon, float *vertices);
-EXPORT void test();
+EXPORT void add_triangle(R_Polygon* polygon, float* vertices);
+EXPORT void test(void);
 
 #endif // OBJECTS_H

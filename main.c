@@ -78,7 +78,6 @@ void RenderScene() {
 }
 
 int main() {
-    test();
     // Register the window class
     WNDCLASS wc = { CS_BYTEALIGNCLIENT, (WNDPROC)WndProc, 0, 0, GetModuleHandle(NULL),
                     LoadIcon(NULL, IDI_APPLICATION), LoadCursor(NULL, IDC_ARROW),

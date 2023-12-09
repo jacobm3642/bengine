@@ -1,5 +1,3 @@
-// objects.c
-
 #if defined(_WIN32) || defined(_WIN64)
   #define EXPORT __declspec(dllexport)
 #else
@@ -33,7 +31,7 @@ EXPORT void add_triangle(R_Polygon *polygon, float *vertices) {
     polygon->vertices[i + 3] = '\0';
 }
 
-EXPORT void test(){
+EXPORT void test(void){
     // Initialize a polygon
     R_Polygon *polygon = init_polygon();
 

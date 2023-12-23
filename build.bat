@@ -8,7 +8,7 @@ if not exist "%folderPath%\build" (
 set "compilerFlag=E:\glew-2.2.0\lib\Release\x64\glew32.lib user32.lib gdi32.lib opengl32.lib"
 set "outputFile=%folderPath%\build\main.exe"
 set "dllOutputPath=%folderPath%\build"
-set "cFiles=%folderPath%\renderer\objects.c %folderPath%\datastructs\heap.c"
+set "cFiles=%folderPath%\renderer\objects.c %folderPath%\renderer\render.c %folderPath%\datastructs\heap.c"
 for %%f in (%cFiles%) do (
     set "currentFile=%%~f"
     set "dllFile=!dllOutputPath!\%%~nf.dll"

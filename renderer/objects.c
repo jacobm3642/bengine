@@ -30,4 +30,3 @@ EXPORT void add_triangle(R_Polygon *polygon, float *vertices) {
     polygon->vertices[i + 2] = vertices[2];
     polygon->vertices[i + 3] = '\0';
 }
-

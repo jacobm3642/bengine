@@ -1,10 +1,10 @@
 #ifndef OBJECTS_H
 #define OBJECTS_H
 
-#ifdef _WIN32
-  #define EXPORT __declspec(dllexport)
+#if defined(_WIN32) || defined(_WIN64)
+    #define EXPORT __declspec(dllexport)
 #else
-  #define EXPORT __attribute__((visibility("default")))
+    #define EXPORT __attribute__((visibility("default")))
 #endif
 
 typedef struct R_Color {
